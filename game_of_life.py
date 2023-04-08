@@ -35,7 +35,7 @@ def create_initial_grid(N, cell_size=10):
 
     return grid
 
-def main():
+def game_of_life():
     N = 50
     num_generations = 2
 
@@ -65,9 +65,8 @@ def main():
             stable = True
         img.set_data(new_grid)
         grid[:] = new_grid[:]
-        print(grid)
         if np.sum(grid) == 0:
-            print(f"jesus cry")
+            print("Plus de vie.")
             sys.exit()
         if stable:
             print("La grille est stable.")
@@ -81,4 +80,4 @@ def main():
     plt.close()
 
 if __name__ == "__main__":
-    main()
+    game_of_life()
