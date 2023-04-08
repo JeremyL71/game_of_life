@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import sys
 
 def main():
     # Définition de la taille de la grille et du nombre de générations à simuler
@@ -34,6 +35,7 @@ def main():
     # Fonction pour mettre à jour la grille selon les règles du jeu de la vie
     def update(frame_number, grid, img):
         new_grid = grid.copy()
+        stable = False
         for i in range(N):
             for j in range(N):
                 neighbors = count_neighbors(grid, i, j)
@@ -41,10 +43,17 @@ def main():
                     new_grid[i, j] = 0
                 elif grid[i, j] == 0 and neighbors == 3:
                     new_grid[i, j] = 1
+        if np.array_equal(grid, new_grid):
+            stable = True
         img.set_data(new_grid)
         grid[:] = new_grid[:]
+        print(grid)
         if np.sum(grid) == 0:  # Si toutes les cellules sont mortes
-            return []  # Arrêter l'animation
+            print(f"jesus cry")
+            sys.exit()
+        if stable:
+            print("La grille est stable.")
+            sys.exit()  # Arrêter le processus Python
         return img,
 
     # Initialisation de l'animation
